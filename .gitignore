@@ -1,5 +1,5 @@
 # Diretório node_modules
-node_modules/
+node_modules
 
 # Arquivo .env
 .env
