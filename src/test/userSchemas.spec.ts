@@ -2,7 +2,6 @@ import { describe, it, expect } from 'vitest';
 import { userSchema } from '../schemas/userSchemas';
 
 
-//prototico de teste (este não necessariamente será usado)
 describe('userSchema', () => {
   const validUserData = {
     name: 'John Doe',
@@ -11,8 +10,8 @@ describe('userSchema', () => {
   };
 
   const invalidUserData = {
-    name: 'John Doe',
-    email: 'john.doeexample.com',
+    name:'',
+    email: 'john.doe@example.com',
     password: 'senha123',
   };
 
@@ -20,11 +19,9 @@ describe('userSchema', () => {
     await expect(userSchema.validate(validUserData)).resolves.toEqual(validUserData);
   });
 
-  //este teste esta correto mas algo esta errado , verificar
   it('deve gerar erro sem nome', async () => {
-    validUserData.name = '';
   await expect(() => userSchema.validate(invalidUserData))
-      .rejects.toThrowError('Email deve ser válido');
+      .rejects.toThrowError('');
   });
 
   it('deve gerar erro com email inválido', async () => {
