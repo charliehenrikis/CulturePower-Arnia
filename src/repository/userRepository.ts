@@ -14,6 +14,11 @@ class UserRepository {
   async findAll() {
     return await User.find()
   }
+
+  async deleteUser(id: string) {
+    const deletedUser = await User.findByIdAndDelete(id).exec()
+    return deletedUser
+  }
 }
 
 export default new UserRepository()

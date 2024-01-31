@@ -1,8 +1,7 @@
-import { userSchema } from '../schemas/userSchemas'
-import userRepository from '../repository/userRepository'
-import bcrypt from 'bcrypt'
+import { createUser } from './user/createUser'
+import { validateUser } from './user/validateUser'
 
-export class UserService {
+class UserService {
   async createUser(newUser: {
     email: any
     password: string | Buffer
@@ -10,20 +9,11 @@ export class UserService {
     photo: any
   }) {
     try {
-      await userSchema.validate(newUser, { abortEarly: false })
-
-      const passwordHashed = await bcrypt.hash(newUser.password, 8)
-
-      const createdUser = await userRepository.createUser({
-        name: newUser.name,
-        email: newUser.email,
-        password: passwordHashed,
-        photo: newUser.photo,
-      })
-
-      return { createdUser }
+      await validateUser(newUser)
+      const createdUser = await createUser(newUser)
+      return createdUser
     } catch (error) {
-      throw new Error('Error na criação do usuario')
+      throw new Error('Erro na criação do usuário')
     }
   }
 }
