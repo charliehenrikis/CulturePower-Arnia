@@ -1,6 +1,6 @@
 import User from '../model/userModel'
 
-class UserRepository {
+export class UserRepository {
   async findByEmail(email: string) {
     return await User.findOne({ email })
   }
@@ -21,4 +21,3 @@ class UserRepository {
   }
 }
 
-export default new UserRepository()

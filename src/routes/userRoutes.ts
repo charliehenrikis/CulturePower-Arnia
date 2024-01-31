@@ -1,18 +1,28 @@
 import express from 'express'
-import UserController from '../controller/UserController'
+import {
+  createUserController,
+  listAllUsersController,
+  deleteUserController,
+} from '../controller/UserController'
 import validateRoute from '../middleware/validateRoute'
 import * as userSchema from '../schemas/userSchemas'
 
 const router = express.Router()
-const userController = new UserController()
 
-router.post('/users',validateRoute(userSchema.CreatePerson.schema),
-  userController.createUser)
+router.post(
+  '/users',
+  validateRoute(userSchema.CreatePerson.schema),
+  createUserController
+)
 
-router.get('/users', userController.listAllUsers)
+router.get('/users', listAllUsersController)
 
-  router.delete('/users/:id' ,validateRoute(userSchema.CreatePerson.schema),
-  userController.deleteUser)
+router.delete(
+  '/users/:id',
+  validateRoute(userSchema.CreatePerson.schema),
+  deleteUserController
+)
 
+//router.post('/login', validateRoute(userSchema.Login.schema), userController.loginUser);
 
 export default router

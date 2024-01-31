@@ -1,7 +1,11 @@
-import { createUser } from './user/createUser'
-import { validateUser } from './user/validateUser'
+import { UserRepository } from '../repository/userRepository'
 
-class UserService {
+export class UserService {
+  userRepository: UserRepository
+  constructor(userRepository: UserRepository) {
+    this.userRepository = userRepository
+  }
+
   async createUser(newUser: {
     email: any
     password: string | Buffer
@@ -9,13 +13,19 @@ class UserService {
     photo: any
   }) {
     try {
-      await validateUser(newUser)
-      const createdUser = await createUser(newUser)
+      const createdUser = await this.userRepository.createUser(newUser)
       return createdUser
     } catch (error) {
       throw new Error('Erro na criação do usuário')
     }
   }
-}
 
-export default new UserService()
+  async findByEmail(email: string) {
+    try {
+      const user = await this.userRepository.findByEmail(email)
+      return user
+    } catch (error) {
+      throw new Error('Erro ao buscar usuário por e-mail')
+    }
+  }
+}
