@@ -25,10 +25,10 @@ User
 
 **CENÁRIOS DE USO**
 
-1. **Cadastro de Usuário**
+<!-- 1. **Cadastro de Usuário**
    - Informações necessárias: nome, e-mail, senha, foto
    - Não permitir o cadastro se um usuário com o mesmo e-mail já existir
-   - Criptografar a senha antes de armazenar no banco de dados
+   - Criptografar a senha antes de armazenar no banco de dados -->
 
 2. **Login de Usuário**
    - Informações necessárias: e-mail e senha

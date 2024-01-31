@@ -1,16 +1,19 @@
-import User from "../model/userModel";
+import User from '../model/userModel'
 
 class UserRepository {
-    static UserRepository: any;
-    async findByEmail(email: string) {
-        return User.findOne({ email });
-    }
+  async findByEmail(email: string) {
+    return await User.findOne({ email })
+  }
 
-    async createUser(userData: any) {
-        const user = new User(userData);
-        await user.save();
-        return user;
-    }
+  async createUser(userData: any) {
+    const user = new User(userData)
+    await user.save()
+    return user
+  }
+
+  async findAll() {
+    return await User.find()
+  }
 }
 
-export default new UserRepository;
+export default new UserRepository()

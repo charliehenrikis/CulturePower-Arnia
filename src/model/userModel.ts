@@ -1,14 +1,14 @@
-import mongoose, { Schema } from "mongoose";
-import IProduct from "./productModel";
+import mongoose, { Schema } from 'mongoose'
+import type IProduct from './productModel'
 
 interface IUser {
-  name: string;
-  email: string;
-  password: string;
-  jewelsAmount: number;
-  products: IProduct[];
-  favoriteProducts: IProduct[];
-  photo: string;
+  name: string
+  email: string
+  password: string
+  jewelsAmount: number
+  products: IProduct[]
+  favoriteProducts: IProduct[]
+  photo: string
 }
 
 const newUser = new Schema<IUser>({
@@ -16,11 +16,11 @@ const newUser = new Schema<IUser>({
   email: { type: String, required: true, unique: true }, // Garante e-mails únicos
   password: { type: String, required: true },
   jewelsAmount: { type: Number, default: 0 },
-  products: [{ type: Schema.Types.ObjectId, ref: "Product" }], // Referência ao modelo Product
-  favoriteProducts: [{ type: Schema.Types.ObjectId, ref: "Product" }], // Referência ao modelo Product
-  photo: { type: String }
-});
+  products: [{ type: Schema.Types.ObjectId, ref: 'Product' }], // Referência ao modelo Product
+  favoriteProducts: [{ type: Schema.Types.ObjectId, ref: 'Product' }], // Referência ao modelo Product
+  photo: { type: String },
+})
 
-const User = mongoose.model("User", newUser);
+const User = mongoose.model('User', newUser)
 
-export default User;
+export default User
