@@ -3,6 +3,7 @@ import express from 'express'
 import { initializeDatabase } from './src/config/mongoConnect'
 import router from './src/routes/userRoutes'
 
+// eslint-disable-next-line @typescript-eslint/no-floating-promises
 initializeDatabase()
 
 const app = express()

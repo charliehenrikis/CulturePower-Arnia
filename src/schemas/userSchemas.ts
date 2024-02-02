@@ -1,5 +1,5 @@
 import * as Yup from 'yup'
-import { type TypedRequest } from '../util/typedRequest'
+import { TypedRequest } from '../util/typedRequest'
 
 // Defina o esquema de validação do usuário
 export const userSchema = Yup.object({
@@ -16,4 +16,16 @@ export const userSchema = Yup.object({
 export namespace CreatePerson {
   export type BodyType = TypedRequest<typeof userSchema>
   export const schema = Yup.object().shape({ body: userSchema })
+}
+
+export const loginSchema = Yup.object({
+  email: Yup.string()
+    .email('Email deve ser válido')
+    .required('Email é obrigatório'),
+  password: Yup.string().required('Senha é obrigatória'),
+})
+
+export namespace LoginPerson {
+  export type LoginBodyType = TypedRequest<typeof loginSchema>
+  export const schema = Yup.object().shape({ body: loginSchema })
 }

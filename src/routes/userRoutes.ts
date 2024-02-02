@@ -3,9 +3,11 @@ import {
   createUserController,
   listAllUsersController,
   deleteUserController,
+  loginController,
 } from '../controller/UserController'
 import validateRoute from '../middleware/validateRoute'
 import * as userSchema from '../schemas/userSchemas'
+import { validateLogin } from '../middleware/validateLogin'
 
 const router = express.Router()
 
@@ -23,6 +25,11 @@ router.delete(
   deleteUserController
 )
 
-//router.post('/login', validateRoute(userSchema.Login.schema), userController.loginUser);
+router.post(
+  '/users/login',
+  validateRoute(userSchema.LoginPerson.schema),
+  validateLogin,
+  loginController
+)
 
 export default router

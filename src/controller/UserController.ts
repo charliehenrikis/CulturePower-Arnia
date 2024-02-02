@@ -1,7 +1,8 @@
-import { type Request, type Response } from 'express'
+import { NextFunction, Request, Response } from 'express'
 import { UserService } from '../services/userServices'
 import { UserRepository } from '../repository/userRepository'
 import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
 
 const userRepository = new UserRepository()
 const userService = new UserService(userRepository)
@@ -54,5 +55,47 @@ export const deleteUserController = async (req: Request, res: Response) => {
   } catch (error) {
     console.error('Erro ao excluir usuário:', error)
     res.status(500).send('Erro interno do servidor')
+  }
+}
+
+export const loginController = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    // Validar dados de entrada
+    const { email, password } = req.body
+    if (!email || !password) {
+      return res
+        .status(400)
+        .send({ message: 'E-mail e senha são obrigatórios' })
+    }
+
+    // Buscar o usuário no banco de dados pelo e-mail
+    const user = await userService.findByEmail(email)
+
+    // Se o usuário não existir, retornar erro
+    if (!user) {
+      return res.status(400).send({ message: 'Usuário não encontrado' })
+    }
+
+    // Se a senha não for compatível, retornar erro
+    const verifiPass = await bcrypt.compare(password, user.password)
+    if (!verifiPass) {
+      return res.status(400).send({ message: 'Email ou Senha inválidos' })
+    }
+
+    // Gerar o token JWT
+    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET as string, {
+      expiresIn: 24 * 60 * 60,
+    })
+
+    // Retornar o token gerado
+    return res.json({ email: user.email, token })
+    // })
+  } catch (error) {
+    console.error('Erro ao fazer login:', error)
+    return res.status(500).send('Erro interno do servidor')
   }
 }
