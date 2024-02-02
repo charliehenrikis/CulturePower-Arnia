@@ -91,8 +91,10 @@ export const loginController = async (
       expiresIn: 24 * 60 * 60,
     })
 
+    console.log(token)
     // Retornar o token gerado
     return res.json({ email: user.email, token })
+
     // })
   } catch (error) {
     console.error('Erro ao fazer login:', error)
