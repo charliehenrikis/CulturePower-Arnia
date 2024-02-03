@@ -7,7 +7,7 @@ import jwt from 'jsonwebtoken'
 const userRepository = new UserRepository()
 const userService = new UserService(userRepository)
 
-export const createUserController = async (req: Request, res: Response) => {
+export const createController = async (req: Request, res: Response) => {
   try {
     // Extrai os dados do corpo da requisição
     const { email, password } = req.body
@@ -37,12 +37,12 @@ export const createUserController = async (req: Request, res: Response) => {
   }
 }
 
-export const listAllUsersController = async (req: Request, res: Response) => {
+export const listAllController = async (req: Request, res: Response) => {
   const users = await userRepository.findAll()
   res.status(200).send(users)
 }
 
-export const deleteUserController = async (req: Request, res: Response) => {
+export const deleteController = async (req: Request, res: Response) => {
   try {
     const id = req.params.id.replace('id:', '')
     const deleteUser = await userRepository.deleteUser(id)
@@ -79,7 +79,6 @@ export const loginController = async (
     if (!user) {
       return res.status(400).send({ message: 'Usuário não encontrado' })
     }
-
     // Se a senha não for compatível, retornar erro
     const verifiPass = await bcrypt.compare(password, user.password)
     if (!verifiPass) {
@@ -91,7 +90,7 @@ export const loginController = async (
       expiresIn: 24 * 60 * 60,
     })
 
-    console.log(token)
+    console.log('Login bem-sucedido', token)
     // Retornar o token gerado
     return res.json({ email: user.email, token })
 

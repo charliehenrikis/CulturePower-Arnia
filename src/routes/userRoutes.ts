@@ -1,8 +1,8 @@
 import express from 'express'
 import {
-  createUserController,
-  listAllUsersController,
-  deleteUserController,
+  createController,
+  listAllController,
+  deleteController,
   loginController,
 } from '../controller/UserController'
 import validateRoute from '../middleware/validateRoute'
@@ -14,20 +14,27 @@ const router = express.Router()
 router.post(
   '/users',
   validateRoute(userSchema.CreatePerson.schema),
-  createUserController
+  createController
 )
 
-router.get('/users', listAllUsersController)
+router.get('/users', authMiddleware, listAllController)
 
 router.delete(
   '/users/:id',
   validateRoute(userSchema.CreatePerson.schema),
   authMiddleware,
-  deleteUserController
+  deleteController
 )
 
 router.post(
   '/users/login',
+  validateRoute(userSchema.LoginPerson.schema),
+  loginController,
+  authMiddleware
+)
+
+router.post(
+  '/users/admin',
   validateRoute(userSchema.LoginPerson.schema),
   loginController,
   authMiddleware
