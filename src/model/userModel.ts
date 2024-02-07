@@ -1,7 +1,7 @@
 import mongoose, { Schema } from 'mongoose'
 import type IProduct from './productModel'
 
-interface IUser {
+export interface IUser {
   name: string
   email: string
   password: string

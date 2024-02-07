@@ -23,7 +23,7 @@ router.post(
 router.get('/users', authenticateToken, isAdmin, listAllController)
 
 // rota de delete pelo id se estiver logado
-router.delete('/users/:id', authenticateToken, deleteController)
+router.delete('/users/:id', authenticateToken, isAdmin, deleteController)
 
 // rota de login => token jwt
 router.post(

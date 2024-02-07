@@ -11,6 +11,7 @@ export class UserService {
     password: string
     name: string
     photo: string
+    isAdmin: boolean
   }) {
     try {
       const createdUser = await this.userRepository.createUser(newUser)

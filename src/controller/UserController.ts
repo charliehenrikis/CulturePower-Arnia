@@ -20,10 +20,13 @@ export const createController = async (req: Request, res: Response) => {
     }
 
     const passwordHashed = await bcrypt.hash(password, 8)
-    // Cria o usuário
+    // Cria o usuário === adicionar isAdmin como false, products vazio e joaias vazias
     const result = await userService.createUser({
-      ...req.body,
+      email,
       password: passwordHashed,
+      name: req.body.name,
+      photo: req.body.photo,
+      isAdmin: false,
     })
 
     res.status(201).send({

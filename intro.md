@@ -43,7 +43,7 @@ User
 
 4. **Visualizar Usuário Logado (ROTA PRIVADA)**
 
-   - Retornar os dados do usuário logado
+   <!-- - Retornar os dados do usuário logado -->
 
 5. **Cadastro de Produto (ROTA PRIVADA - ADMIN)**
 
@@ -76,3 +76,6 @@ User
     - Não permitir o resgate se o usuário não tiver joias suficientes
     - Decrementar o valor do produto pela quantidade de joias
     - Decrementar a quantidade do produto
+
+//pra criar o adminstrador é preciso criar o usuario normal que já terá o campo isAdmin como false
+//depois que criar alterar no banco de dados isadmin para true

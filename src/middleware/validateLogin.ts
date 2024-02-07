@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken'
 import { Request, Response, NextFunction } from 'express'
 import { UserService } from '../services/userServices'
 import { UserRepository } from '../repository/userRepository'
+import { IUser } from '../model/userModel'
 
 const userRepository = new UserRepository()
 const userService = new UserService(userRepository)
@@ -10,7 +11,7 @@ const JWT_SECRET = process.env.JWT_SECRET as string
 
 declare module 'express' {
   interface Request {
-    user?: any
+    user?: IUser
   }
 }
 
