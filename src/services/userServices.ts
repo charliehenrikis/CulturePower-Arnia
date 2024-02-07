@@ -7,10 +7,10 @@ export class UserService {
   }
 
   async createUser(newUser: {
-    email: any
-    password: string | Buffer
-    name: any
-    photo: any
+    email: string
+    password: string
+    name: string
+    photo: string
   }) {
     try {
       const createdUser = await this.userRepository.createUser(newUser)
@@ -26,6 +26,15 @@ export class UserService {
       return user
     } catch (error) {
       throw new Error('Erro ao buscar usuário por e-mail')
+    }
+  }
+
+  async findById(id: string) {
+    try {
+      const user = await this.userRepository.findById(id)
+      return user
+    } catch (error) {
+      throw new Error('Erro ao buscar usuário pelo ID')
     }
   }
 }

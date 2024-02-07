@@ -1,43 +1,35 @@
 import express from 'express'
 import {
   createController,
-  listAllController,
   deleteController,
   loginController,
+  listAllController,
 } from '../controller/UserController'
 import validateRoute from '../middleware/validateRoute'
 import * as userSchema from '../schemas/userSchemas'
-import { authMiddleware } from '../middleware/validateLogin'
+import { authenticateToken } from '../middleware/validateLogin'
+import { isAdmin } from '../middleware/verifyPermissions'
 
 const router = express.Router()
 
+// rota de criação de usuario
 router.post(
   '/users',
   validateRoute(userSchema.CreatePerson.schema),
   createController
 )
 
-router.get('/users', authMiddleware, listAllController)
+// rota de listar todos os usuarios apenas se for admin
+router.get('/users', authenticateToken, isAdmin, listAllController)
 
-router.delete(
-  '/users/:id',
-  validateRoute(userSchema.CreatePerson.schema),
-  authMiddleware,
-  deleteController
-)
+// rota de delete pelo id se estiver logado
+router.delete('/users/:id', authenticateToken, deleteController)
 
+// rota de login => token jwt
 router.post(
   '/users/login',
   validateRoute(userSchema.LoginPerson.schema),
-  loginController,
-  authMiddleware
-)
-
-router.post(
-  '/users/admin',
-  validateRoute(userSchema.LoginPerson.schema),
-  loginController,
-  authMiddleware
+  loginController
 )
 
 export default router

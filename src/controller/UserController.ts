@@ -15,8 +15,8 @@ export const createController = async (req: Request, res: Response) => {
     // Verifica se o e-mail já está registrado
     const existingUser = await userService.findByEmail(email)
 
-    if (existingUser != null) {
-      throw new Error(`E-mail ${email} já registrado`)
+    if (existingUser?.email === email) {
+      res.status(400).send({ message: `E-mail ${email} já registrado` })
     }
 
     const passwordHashed = await bcrypt.hash(password, 8)
@@ -32,7 +32,7 @@ export const createController = async (req: Request, res: Response) => {
     })
   } catch (error) {
     res.status(400).send({
-      message: 'Houve um erro na criação do usuário}',
+      message: 'Houve um erro na criação do usuário',
     })
   }
 }
@@ -46,11 +46,12 @@ export const deleteController = async (req: Request, res: Response) => {
   try {
     const id = req.params.id.replace('id:', '')
     const deleteUser = await userRepository.deleteUser(id)
+    console.log(deleteUser)
 
-    if (!deleteUser) {
-      res.status(404).send({ message: `Usuário com ID ${id} não encontrado` })
+    if (deleteUser?.id === id) {
+      res.status(200).send({ message: `Usuário com ID ${id} foi apagado` })
     } else {
-      res.status(204).send()
+      res.status(404).send({ message: `Usuário com ID ${id} não encontrado` })
     }
   } catch (error) {
     console.error('Erro ao excluir usuário:', error)
@@ -86,11 +87,13 @@ export const loginController = async (
     }
 
     // Gerar o token JWT
+    // usar id para buscar de isAdmin === implementar no validatelogin decoded
     const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET as string, {
       expiresIn: 24 * 60 * 60,
     })
 
     console.log('Login bem-sucedido', token)
+
     // Retornar o token gerado
     return res.json({ email: user.email, token })
 

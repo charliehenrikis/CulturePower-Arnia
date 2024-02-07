@@ -9,16 +9,18 @@ interface IUser {
   products: IProduct[]
   favoriteProducts: IProduct[]
   photo: string
+  isAdmin: boolean
 }
 
 const newUser = new Schema<IUser>({
   name: { type: String, required: true },
-  email: { type: String, required: true, unique: true }, // Garante e-mails únicos
+  email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   jewelsAmount: { type: Number, default: 0 },
-  products: [{ type: Schema.Types.ObjectId, ref: 'Product' }], // Referência ao modelo Product
-  favoriteProducts: [{ type: Schema.Types.ObjectId, ref: 'Product' }], // Referência ao modelo Product
+  products: [{ type: Schema.Types.ObjectId, ref: 'Product' }],
+  favoriteProducts: [{ type: Schema.Types.ObjectId, ref: 'Product' }],
   photo: { type: String },
+  isAdmin: { type: Boolean, default: false },
 })
 
 const User = mongoose.model('User', newUser)

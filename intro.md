@@ -36,10 +36,10 @@ User
 
 3. **Login de Admin**
 
-   - Informações necessárias: e-mail e senha
+   <!-- - Informações necessárias: e-mail e senha
    - Não gerar um token se não existir um admin com o e-mail fornecido
    - Não gerar um token se a senha enviada não for compatível com a do banco de dados
-   - Gerar um token e retornar se as credenciais estiverem corretas
+   - Gerar um token e retornar se as credenciais estiverem corretas -->
 
 4. **Visualizar Usuário Logado (ROTA PRIVADA)**
 
