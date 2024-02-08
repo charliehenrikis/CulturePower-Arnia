@@ -36,11 +36,7 @@ export const authenticateToken = (
     try {
       // pegar o id de dentro do decoded
       const userId = decoded.id
-      console.log(decoded)
-
-      // busacar usuario com esse id (criar servico e repositorio, findUserByID)
       const user = await userService.findById(userId as string)
-      console.log(user)
 
       if (!user) {
         throw new Error('Usuário não encontrado')

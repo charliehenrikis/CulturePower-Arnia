@@ -1,6 +1,6 @@
 import mongoose, { Schema } from 'mongoose'
 
-interface IProduct {
+export interface IProduct {
   Name: string
   Value: number
   Amount: number
@@ -16,6 +16,4 @@ const newProduct = new Schema<IProduct>({
   Photo: { type: String },
 })
 
-mongoose.model('Product', newProduct)
-
-export default IProduct
+export const Product = mongoose.model('Product', newProduct)

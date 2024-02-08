@@ -7,7 +7,7 @@ import jwt from 'jsonwebtoken'
 const userRepository = new UserRepository()
 const userService = new UserService(userRepository)
 
-export const createController = async (req: Request, res: Response) => {
+export const createUserController = async (req: Request, res: Response) => {
   try {
     // Extrai os dados do corpo da requisição
     const { email, password } = req.body
@@ -20,7 +20,7 @@ export const createController = async (req: Request, res: Response) => {
     }
 
     const passwordHashed = await bcrypt.hash(password, 8)
-    // Cria o usuário === adicionar isAdmin como false, products vazio e joaias vazias
+    // Cria o usuário === adicionar isAdmin como false, products vazio e joias vazias
     const result = await userService.createUser({
       email,
       password: passwordHashed,

@@ -1,13 +1,14 @@
 import mongoose, { Schema } from 'mongoose'
-import type IProduct from './productModel'
+
+// verificar products e como tipar interfaces com array
 
 export interface IUser {
   name: string
   email: string
   password: string
   jewelsAmount: number
-  products: IProduct[]
-  favoriteProducts: IProduct[]
+  products: string[]
+  favoriteProducts: string[]
   photo: string
   isAdmin: boolean
 }

@@ -77,5 +77,4 @@ User
     - Decrementar o valor do produto pela quantidade de joias
     - Decrementar a quantidade do produto
 
-//pra criar o adminstrador é preciso criar o usuario normal que já terá o campo isAdmin como false
-//depois que criar alterar no banco de dados isadmin para true
+//aula dia 14-12 muter (update foto)

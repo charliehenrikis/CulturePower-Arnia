@@ -1,7 +1,7 @@
 import 'dotenv/config'
 import express from 'express'
 import { initializeDatabase } from './src/config/mongoConnect'
-import router from './src/routes/userRoutes'
+import { router } from './src/routes/routes'
 
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
 initializeDatabase()

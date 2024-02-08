@@ -1,0 +1,26 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "dev",
+			"problemMatcher": [],
+			"label": "npm: dev",
+			"detail": "tsnd --respawn app.ts"
+		},
+		{
+			"type": "Live Preview",
+			"workspacePath": "c:\\Users\\charl\\Documents\\PROJETO_MODULO2",
+			"problemMatcher": [],
+			"label": "Live Preview: Executar Servidor"
+		},
+		{
+			"type": "npm",
+			"script": "install",
+			"group": "clean",
+			"problemMatcher": [],
+			"label": "npm: install",
+			"detail": "install dependencies from package"
+		}
+	]
+}
