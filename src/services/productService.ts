@@ -30,4 +30,13 @@ export class ProductService {
       throw new Error('Erro ao buscar produto pelo ID')
     }
   }
+
+  async findAll() {
+    try {
+      const findProduct = await this.productRepository.findAll()
+      return findProduct
+    } catch (error) {
+      throw new Error('Erro ao buscar todos os produtos')
+    }
+  }
 }

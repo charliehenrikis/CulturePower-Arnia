@@ -17,6 +17,6 @@ export class ProductRepository {
   }
 
   async findById(id: string) {
-    return await Product.findById(id)
+    return await Product.findById(id).exec()
   }
 }

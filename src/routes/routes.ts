@@ -10,7 +10,11 @@ import * as userSchema from '../schemas/userSchemas'
 import * as productSchema from '../schemas/productSchema'
 import { authenticateToken } from '../middleware/validateLogin'
 import { isAdmin } from '../middleware/verifyPermissions'
-import { createProductController } from '../controller/productController'
+import {
+  ListProductByID,
+  createProductController,
+  listAllProduct,
+} from '../controller/productController'
 
 export const router = express.Router()
 
@@ -42,6 +46,12 @@ router.post(
   isAdmin,
   createProductController
 )
+
+// rota de listar todos os produtos apenas se for admin
+router.get('/products', authenticateToken, isAdmin, listAllProduct)
+
+// rota de buscar o produto pelo id
+router.get('/products/:id', authenticateToken, ListProductByID)
 
 // rota de atualizar produto se for admin (EM DESENVOLVIMENTO)
 router.put(

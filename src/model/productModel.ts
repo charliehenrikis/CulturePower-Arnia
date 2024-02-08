@@ -1,19 +1,19 @@
 import mongoose, { Schema } from 'mongoose'
 
 export interface IProduct {
-  Name: string
-  Value: number
-  Amount: number
-  Description: string
-  Photo: string
+  name: string
+  value: number
+  amount: number
+  description: string
+  photo: string
 }
 
 const newProduct = new Schema<IProduct>({
-  Name: { type: String, required: true },
-  Value: { type: Number, required: true },
-  Amount: { type: Number, required: true, default: 0 },
-  Description: { type: String, required: true },
-  Photo: { type: String },
+  name: { type: String, required: true },
+  value: { type: Number, required: true },
+  amount: { type: Number, required: true, default: 0 },
+  description: { type: String, required: true },
+  photo: { type: String },
 })
 
 export const Product = mongoose.model('Product', newProduct)
