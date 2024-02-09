@@ -11,9 +11,11 @@ import * as productSchema from '../schemas/productSchema'
 import { authenticateToken } from '../middleware/validateLogin'
 import { isAdmin } from '../middleware/verifyPermissions'
 import {
+  EditProductByID,
   ListProductByID,
   createProductController,
   listAllProduct,
+  listAvailableProduct,
 } from '../controller/productController'
 
 export const router = express.Router()
@@ -38,7 +40,7 @@ router.get('/User', authenticateToken, isAdmin, listAllController)
 // rota de delete pelo id se estiver logado
 router.delete('/User/:id', authenticateToken, isAdmin, deleteController)
 
-// rota de criação de produto (EM DESENVOLVIMENTO)
+// rota de criação de produto se for admin
 router.post(
   '/products',
   validateRoute(productSchema.CreateProducts.schema),
@@ -51,12 +53,16 @@ router.post(
 router.get('/products', authenticateToken, isAdmin, listAllProduct)
 
 // rota de buscar o produto pelo id
-router.get('/products/:id', authenticateToken, ListProductByID)
+router.get('/products/:id', authenticateToken, isAdmin, ListProductByID)
 
-// rota de atualizar produto se for admin (EM DESENVOLVIMENTO)
+// rota de buscar os produtos existentes se for admin
+router.get('/products', authenticateToken, isAdmin, listAvailableProduct)
+
+// rota de atualizar produto se for admin
 router.put(
-  '/products/update',
+  '/products/:id',
   validateRoute(productSchema.CreateProducts.schema),
   authenticateToken,
-  isAdmin
+  isAdmin,
+  EditProductByID
 )

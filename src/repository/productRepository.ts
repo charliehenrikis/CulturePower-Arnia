@@ -19,4 +19,15 @@ export class ProductRepository {
   async findById(id: string) {
     return await Product.findById(id).exec()
   }
+
+  async findByIdAndUpdate(id: string, newData: any) {
+    try {
+      const updatedProduct = await Product.findByIdAndUpdate(id, newData, {
+        new: true,
+      }).exec()
+      return updatedProduct
+    } catch (error: any) {
+      throw new Error(`Erro ao salvar o produto: ${error.message}`)
+    }
+  }
 }
