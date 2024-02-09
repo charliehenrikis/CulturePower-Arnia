@@ -17,6 +17,9 @@ import {
   listAllProduct,
   listAvailableProduct,
 } from '../controller/productController'
+import { uploadPhotoMiddleware } from '../middleware/upload'
+import { filePhotoProduct } from '../middleware/filePhotoProducts'
+import { filePhotoUsers } from '../middleware/filephotoUsers'
 
 export const router = express.Router()
 
@@ -47,6 +50,24 @@ router.post(
   authenticateToken,
   isAdmin,
   createProductController
+)
+
+// rota de adicionar imagem via multer de produtos
+router.patch(
+  '/products/uploadImage/:id',
+  authenticateToken,
+  isAdmin,
+  uploadPhotoMiddleware,
+  filePhotoProduct
+)
+
+// rota de adicionar imagem via multer de Usuarios
+router.patch(
+  '/users/uploadImage/:id',
+  authenticateToken,
+  isAdmin,
+  uploadPhotoMiddleware,
+  filePhotoUsers
 )
 
 // rota de listar todos os produtos apenas se for admin

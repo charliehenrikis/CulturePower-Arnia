@@ -76,5 +76,3 @@ User
     - Não permitir o resgate se o usuário não tiver joias suficientes
     - Decrementar o valor do produto pela quantidade de joias
     - Decrementar a quantidade do produto
-
-//aula dia 14-12 muter (update foto)

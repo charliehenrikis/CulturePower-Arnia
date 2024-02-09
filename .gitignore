@@ -3,3 +3,5 @@ node_modules
 
 # Arquivo .env
 .env
+
+src/temp/uploads
