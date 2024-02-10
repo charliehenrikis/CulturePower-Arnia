@@ -1,8 +1,11 @@
 # Diretório node_modules
-node_modules
+node_modules/
 
 # Arquivo .env
 .env
 
 # Pasta Temp com fotos
-src\tmp
+src/tmp/
+
+# Diretório .vscode
+.vscode/
