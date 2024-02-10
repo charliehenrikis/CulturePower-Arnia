@@ -31,12 +31,14 @@ export const createProductController = async (req: Request, res: Response) => {
 }
 
 export const listAllProduct = async (req: Request, res: Response) => {
+  console.log('buscando todos os produtos')
   const products = await productService.findAll()
   res.status(200).send(products)
 }
 
 export const ListProductByID = async (req: Request, res: Response) => {
   try {
+    console.log('buscando produto pelo ID ')
     const id = req.params.id.replace('id:', '')
     const product = await productService.findById(id)
     if (!product) {
@@ -67,6 +69,14 @@ export const EditProductByID = async (req: Request, res: Response) => {
 
 // a terminar listagem de produtos disponiveis(amount > 0 )
 export const listAvailableProduct = async (req: Request, res: Response) => {
-  const availableProducts = await productService.availableProduct()
-  res.status(200).send(availableProducts)
+  try {
+    console.log('buscando produto')
+    const { id } = req.params
+    const { amount } = req.body
+
+    const availableProducts = await productService.availableProduct(id, amount)
+    res.status(200).send({ success: true, availableProducts })
+  } catch (error: any) {
+    res.status(500).send({ error: true, message: error.message })
+  }
 }

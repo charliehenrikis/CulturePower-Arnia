@@ -57,7 +57,7 @@ User
 
 7. **Listar Todos os Produtos (ROTA PRIVADA)**
 
-   - Deve listar os produtos com quantidade maior que 0
+   <!-- - Deve listar os produtos com quantidade maior que 0 -->
 
 8. **Buscar Produto por ID (ROTA PRIVADA)**
 
@@ -66,9 +66,9 @@ User
 
 9. **Enviar Joia para Usuário (ROTA PRIVADA - ADMIN)**
 
-   - Informações necessárias: quantidade de joia, ID do usuário
+   <!-- - Informações necessárias: quantidade de joia, ID do usuário
    - Não permitir o envio se o usuário não existirem
-   - Não permitir o envio se o usuário que está executando a ação não for um administrador
+   - Não permitir o envio se o usuário que está executando a ação não for um administrador -->
 
 10. **Resgatar Produto (ROTA PRIVADA)**
     - Informações necessárias: ID do produto, ID do usuário

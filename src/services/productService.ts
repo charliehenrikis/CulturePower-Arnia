@@ -62,16 +62,19 @@ export class ProductService {
     return await Product.findByIdAndUpdate(id, newData, { new: true }).exec()
   }
 
-  async availableProduct() {
+  async availableProduct(userId: string, amount: number) {
     try {
       // Buscar todos os produtos no repositório
       const allProducts = await this.productRepository.findAll()
+      console.log('all')
 
       // Filtrar os produtos com quantidade maior que zero
       const availableProducts = allProducts.filter(
-        (product) => product.amount > 0
+        (product) =>
+          product.amount > 0 &&
+          (amount === undefined || product.amount >= amount)
       )
-
+      console.log(availableProducts)
       // Retornar os produtos disponíveis
       return availableProducts
     } catch (error) {

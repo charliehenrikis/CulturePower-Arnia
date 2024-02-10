@@ -95,14 +95,37 @@ export const loginController = async (
       expiresIn: 24 * 60 * 60,
     })
 
-    console.log('Login bem-sucedido', token)
+    console.log('Login bem-sucedido', token, user.isAdmin)
 
     // Retornar o token gerado
-    return res.json({ email: user.email, token })
+    return res.json({
+      message: 'Login bem-sucedido',
+      id: user.id,
+      email: user.email,
+      isAdmin: user.isAdmin,
+      token,
+    })
 
     // })
   } catch (error) {
     console.error('Erro ao fazer login:', error)
     return res.status(500).send('Erro interno do servidor')
+  }
+}
+
+export async function sendJewelsToUser(req: Request, res: Response) {
+  try {
+    const { id } = req.params
+    const { jewelsAmount } = req.body
+
+    if (!id) {
+      throw new Error('É obrigatório passar o ID para efetuar a transferência')
+    }
+
+    const result = await userService.sendJewelsToUser(id, jewelsAmount)
+
+    res.status(200).send({ success: true, result })
+  } catch (error: any) {
+    res.status(500).send({ error: true, message: error.message })
   }
 }
