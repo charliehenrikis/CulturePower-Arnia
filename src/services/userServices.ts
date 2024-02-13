@@ -1,10 +1,17 @@
 import User from '../model/userModel'
+import { ProductRepository } from '../repository/productRepository'
 import { UserRepository } from '../repository/userRepository'
 
 export class UserService {
   userRepository: UserRepository
-  constructor(userRepository: UserRepository) {
+  productRepository = new ProductRepository()
+
+  constructor(
+    userRepository: UserRepository
+    //  productRepository: ProductRepository
+  ) {
     this.userRepository = userRepository
+    //  this.productRepository = productRepository
   }
 
   async createUser(newUser: {
@@ -31,6 +38,20 @@ export class UserService {
     }
   }
 
+  async updateUser(id: string, newData: any) {
+    try {
+      const user = await this.userRepository.findByIdAndUpdate(id, newData)
+
+      if (!user) {
+        throw new Error('Produto não encontrado')
+      }
+
+      return user
+    } catch (error: any) {
+      throw new Error(`Erro ao atualizar o usuario: ${error.message}`)
+    }
+  }
+
   async findById(id: string) {
     try {
       const user = await this.userRepository.findById(id)
@@ -54,4 +75,52 @@ export class UserService {
     const updatedUser = await this.userRepository.findById(userId)
     return updatedUser
   }
+
+  async redeemProduct(userId: string, productId: string) {
+    try {
+      // pegar os ID que preciso por parametros
+      console.log('chegamos na service')
+      const user: any = await this.userRepository.findById(userId)
+      const product: any = await this.productRepository.findById(productId)
+      console.log(user)
+      console.log(product)
+
+      if (!user || !product) {
+        throw new Error('Usuário ou produto não encontrado')
+      }
+
+      console.log(
+        `Usuário ${user.name} e produto ${product.name} buscados com sucesso.`
+      )
+
+      // verifica se tem joias o suficiente para efetuar o resgate
+      if (user.jewelsAmount < product.value) {
+        throw new Error('Saldo insuficiente para resgatar o produto')
+      } else {
+        // efetua a troca
+        user.jewelsAmount -= product.value
+        user.products.push(product)
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const update: any = this.userRepository.findByIdAndUpdate(userId, user)
+        product.amount--
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const updateProducts = this.productRepository.findByIdAndUpdate(
+          productId,
+          product
+        )
+      }
+
+      // Adiciona o produto resgatado à lista de produtos no array do usuario
+      console.log(`Produto ${product.name} resgatado por ${user.name}`)
+
+      return {
+        success: true,
+        message: 'O produto foi resgatado com sucesso!',
+      }
+    } catch (error: any) {
+      throw new Error(`Erro ao resgatar o produto: ${error.message}`)
+    }
+  }
 }
+
+// fazer validacao de estoque

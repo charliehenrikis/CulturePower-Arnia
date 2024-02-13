@@ -1,4 +1,5 @@
 import mongoose, { Schema } from 'mongoose'
+import { Product } from '../model/productModel'
 
 // verificar products e como tipar interfaces com array
 
@@ -7,7 +8,7 @@ export interface IUser {
   email: string
   password: string
   jewelsAmount: number
-  products: string[]
+  products: typeof Product
   favoriteProducts: string[]
   photo: string
   isAdmin: boolean

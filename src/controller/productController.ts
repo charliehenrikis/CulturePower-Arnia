@@ -67,7 +67,6 @@ export const EditProductByID = async (req: Request, res: Response) => {
   }
 }
 
-// a terminar listagem de produtos disponiveis(amount > 0 )
 export const listAvailableProduct = async (req: Request, res: Response) => {
   try {
     console.log('buscando produto')

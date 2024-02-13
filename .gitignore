@@ -5,7 +5,8 @@ node_modules/
 .env
 
 # Pasta Temp com fotos
-src/tmp/
+src/tmp/uploads/
 
 # Diretório .vscode
 .vscode/
+

@@ -45,6 +45,37 @@ export const listAllController = async (req: Request, res: Response) => {
   res.status(200).send(users)
 }
 
+export const ListUserById = async (req: Request, res: Response) => {
+  try {
+    console.log('buscando usuario pelo ID ')
+    const id = req.params.id.replace('id:', '')
+    const user = await userService.findById(id)
+    if (!user) {
+      return res.status(404).send({ message: 'Usuario não encontrado' })
+    }
+    res.status(200).send({ user })
+  } catch (error) {
+    res.status(500).send({ message: 'Erro ao buscar Usuario pelo ID' })
+  }
+}
+
+export const EditUserByID = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id.replace('id:', '')
+    const body = req.body
+
+    const user = await userService.updateUser(id, body)
+
+    if (!user) {
+      return res.status(404).send({ message: 'Produto não encontrado' })
+    }
+
+    res.status(200).send({ message: 'Atualizado com sucesso', user })
+  } catch (error: any) {
+    res.status(500).send({ error: true, message: error.message })
+  }
+}
+
 export const deleteController = async (req: Request, res: Response) => {
   try {
     const id = req.params.id.replace('id:', '')
@@ -127,5 +158,23 @@ export async function sendJewelsToUser(req: Request, res: Response) {
     res.status(200).send({ success: true, result })
   } catch (error: any) {
     res.status(500).send({ error: true, message: error.message })
+  }
+}
+
+export const giftToProducts = async (req: Request, res: Response) => {
+  try {
+    console.log(req.params)
+    const { productId, userId } = req.body
+    console.log('UserId:', userId)
+    console.log('ProductId:', productId)
+
+    if (!userId || !productId) {
+      throw new Error('Não foi possível resgatar o produto')
+    }
+
+    const result = await userService.redeemProduct(userId, productId)
+    res.status(200).json({ message: 'Você resgastou o produto!', result })
+  } catch (error: any) {
+    res.status(500).json({ error: true, message: error.message })
   }
 }

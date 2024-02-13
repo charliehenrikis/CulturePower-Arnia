@@ -21,6 +21,18 @@ export class UserRepository {
   }
 
   async findById(id: string) {
-    return await User.findById(id)
+    console.log('chegamos no repository do usuario', id)
+    return await User.findById(id).exec()
+  }
+
+  async findByIdAndUpdate(id: string, newData: any) {
+    try {
+      const updatedUser = await User.findByIdAndUpdate(id, newData, {
+        new: true,
+      }).exec()
+      return updatedUser
+    } catch (error: any) {
+      throw new Error(`Erro ao salvar o usuario: ${error.message}`)
+    }
   }
 }
