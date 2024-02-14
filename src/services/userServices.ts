@@ -97,12 +97,20 @@ export class UserService {
       if (user.jewelsAmount < product.value) {
         throw new Error('Saldo insuficiente para resgatar o produto')
       } else {
-        // efetua a troca
+        // efetua a troca e envia pro banco
         user.jewelsAmount -= product.value
         user.products.push(product)
+
+        // atualiza e decrementa usuarios e produtos
+
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const update: any = this.userRepository.findByIdAndUpdate(userId, user)
-        product.amount--
+        const update = this.userRepository.findByIdAndUpdate(userId, user)
+        if (product.amount > 0) {
+          product.amount-- // Reduz a quantidade do produto
+        } else {
+          throw new Error('Não há este produto em estoque no momento')
+        }
+
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const updateProducts = this.productRepository.findByIdAndUpdate(
           productId,
@@ -122,5 +130,3 @@ export class UserService {
     }
   }
 }
-
-// fazer validacao de estoque

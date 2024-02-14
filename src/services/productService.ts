@@ -66,7 +66,6 @@ export class ProductService {
     try {
       // Buscar todos os produtos no repositório
       const allProducts = await this.productRepository.findAll()
-      console.log('all')
 
       // Filtrar os produtos com quantidade maior que zero
       const availableProducts = allProducts.filter(
@@ -74,7 +73,7 @@ export class ProductService {
           product.amount > 0 &&
           (amount === undefined || product.amount >= amount)
       )
-      console.log(availableProducts)
+
       // Retornar os produtos disponíveis
       return availableProducts
     } catch (error) {
