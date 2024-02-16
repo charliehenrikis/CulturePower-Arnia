@@ -62,7 +62,7 @@ export class ProductService {
     return await Product.findByIdAndUpdate(id, newData, { new: true }).exec()
   }
 
-  async availableProduct(userId: string, amount: number) {
+  async availableProduct(amount: number) {
     try {
       // Buscar todos os produtos no repositório
       const allProducts = await this.productRepository.findAll()
@@ -73,7 +73,7 @@ export class ProductService {
           product.amount > 0 &&
           (amount === undefined || product.amount >= amount)
       )
-
+      console.log(availableProducts)
       // Retornar os produtos disponíveis
       return availableProducts
     } catch (error) {

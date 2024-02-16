@@ -31,7 +31,6 @@ export const createProductController = async (req: Request, res: Response) => {
 }
 
 export const listAllProduct = async (req: Request, res: Response) => {
-  console.log('buscando todos os produtos')
   const products = await productService.findAll()
   res.status(200).send(products)
 }
@@ -69,11 +68,9 @@ export const EditProductByID = async (req: Request, res: Response) => {
 
 export const listAvailableProduct = async (req: Request, res: Response) => {
   try {
-    console.log('buscando produto')
-    const { id } = req.params
-    const { amount } = req.body
+    const amount = 0
 
-    const availableProducts = await productService.availableProduct(id, amount)
+    const availableProducts = await productService.availableProduct(amount)
     res.status(200).send({ success: true, availableProducts })
   } catch (error: any) {
     res.status(500).send({ error: true, message: error.message })

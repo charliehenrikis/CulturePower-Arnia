@@ -1,8 +1,6 @@
 import mongoose, { Schema } from 'mongoose'
 import { Product } from '../model/productModel'
 
-// verificar products e como tipar interfaces com array
-
 export interface IUser {
   name: string
   email: string

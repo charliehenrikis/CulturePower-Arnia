@@ -21,7 +21,6 @@ export class UserRepository {
   }
 
   async findById(id: string) {
-    console.log('chegamos no repository do usuario', id)
     return await User.findById(id).exec()
   }
 

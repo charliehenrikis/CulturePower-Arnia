@@ -71,8 +71,8 @@ User
    - Não permitir o envio se o usuário que está executando a ação não for um administrador -->
 
 10. **Resgatar Produto (ROTA PRIVADA)**
-    - Informações necessárias: ID do produto, ID do usuário
+    <!-- - Informações necessárias: ID do produto, ID do usuário
     - Não permitir o resgate se o produto ou o usuário não existirem
     - Não permitir o resgate se o usuário não tiver joias suficientes
-    - Decrementar o valor do produto pela quantidade de joias
-    - Decrementar a quantidade do produto
+    - Decrementar a quantidade de joias pelo valor do produto
+    - Decrementar a quantidade do produto -->

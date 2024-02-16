@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import User from '../model/userModel'
 import { ProductRepository } from '../repository/productRepository'
 import { UserRepository } from '../repository/userRepository'
@@ -79,11 +80,8 @@ export class UserService {
   async redeemProduct(userId: string, productId: string) {
     try {
       // pegar os ID que preciso por parametros
-      console.log('chegamos na service')
       const user: any = await this.userRepository.findById(userId)
       const product: any = await this.productRepository.findById(productId)
-      console.log(user)
-      console.log(product)
 
       if (!user || !product) {
         throw new Error('Usuário ou produto não encontrado')
@@ -102,8 +100,6 @@ export class UserService {
         user.products.push(product)
 
         // atualiza e decrementa usuarios e produtos
-
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const update = this.userRepository.findByIdAndUpdate(userId, user)
         if (product.amount > 0) {
           product.amount-- // Reduz a quantidade do produto
@@ -111,7 +107,6 @@ export class UserService {
           throw new Error('Não há este produto em estoque no momento')
         }
 
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const updateProducts = this.productRepository.findByIdAndUpdate(
           productId,
           product
@@ -123,7 +118,7 @@ export class UserService {
 
       return {
         success: true,
-        message: 'O produto foi resgatado com sucesso!',
+        user,
       }
     } catch (error: any) {
       throw new Error(`Erro ao resgatar o produto: ${error.message}`)
