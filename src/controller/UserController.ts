@@ -172,10 +172,14 @@ export const giftToProducts = async (req: Request, res: Response) => {
     }
 
     const result = await userService.redeemProduct(userId, productId)
-    res.status(200).json({ message: 'Você resgastou o produto!', result })
+    if (result) {
+      res.status(200).json({ message: 'Você resgatou o produto!', result })
+    } else {
+      res
+        .status(500)
+        .json({ error: true, message: 'Erro ao resgatar o produto' })
+    }
   } catch (error: any) {
-    res
-      .status(500)
-      .json({ error: true, message: 'Usuario ou produto não existe' })
+    res.status(500).json({ error: true, message: error.message })
   }
 }

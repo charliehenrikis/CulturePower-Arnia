@@ -69,6 +69,9 @@ export class UserService {
       throw new Error('Usuário não encontrado')
     }
 
+    if (jewelsAmount < 0 && Math.abs(jewelsAmount) > user.jewelsAmount) {
+      throw new Error('Quantidade de joias não pode ser menor que zero')
+    }
     // Atualização da quantidade de joias do usuário
     await User.findByIdAndUpdate(userId, { $inc: { jewelsAmount } })
 
