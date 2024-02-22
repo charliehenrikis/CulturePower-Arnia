@@ -62,6 +62,7 @@ O e-mail não pode estar cadastrado
 A senha deve ter no mínimo 8 caracteres 🔐
 
 Criptografia: 🔒 A senha é criptografada antes de ser armazenada no banco de dados.
+
 Armazenamento: 💾 A foto do usuario é armazenada no servidor. O envio de foto é opcional.
 
 ### 2. Login de Usuário:
@@ -121,6 +122,7 @@ Informações necessárias: 💎 quantidade de joias, ID do usuário
 Validações: 🕵️‍♀️
 O usuário deve existir
 A quantidade de joias não pode ser menor que zero
+
 O usuário que está enviando a joia deve ser administrador 👑
 
 Atualização: A quantidade de joias do usuário é incrementada.
